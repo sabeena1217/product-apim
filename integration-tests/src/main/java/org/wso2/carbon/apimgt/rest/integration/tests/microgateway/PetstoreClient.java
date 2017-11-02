@@ -16,6 +16,22 @@
  *  under the License.
  */
 package org.wso2.carbon.apimgt.rest.integration.tests.microgateway;
+import feign.Body;
+import feign.Headers;
+import feign.Param;
+import feign.RequestLine;
+import feign.Response;
+public interface PetstoreClient {
 
-public class PetstoreClient {
+    /**
+     * Add a new pet to the store
+     *
+     * @param body Pet object that needs to be added to the store (required)
+     */
+//    @RequestLine("POST /pet")
+//    @Headers({
+//            "Content-Type: application/json",
+//            "Accept: application/json",
+//    })
+//    void addPet(Pet body);
 }

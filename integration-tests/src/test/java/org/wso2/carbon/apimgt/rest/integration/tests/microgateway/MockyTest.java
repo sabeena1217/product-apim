@@ -23,28 +23,42 @@ import feign.Feign;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;
-
+import org.wso2.carbon.apimgt.core.configuration.models.KeyMgtConfigurations;
+import org.wso2.carbon.apimgt.core.exception.APIManagementException;
+import org.wso2.carbon.apimgt.core.internal.ServiceReferenceHolder;
+import org.wso2.carbon.apimgt.core.util.AMSSLSocketFactory;
 public class MockyTest {
 
+    MockyClient client = null;
+
     @BeforeTest
-    public void setup(){
+    public void setup() throws APIManagementException{
         String url = "https://localhost:9092/api";
-//        KeyMgtConfigurations keyManagerConfigs = ServiceReferenceHolder.getInstance().getAPIMConfiguration()
-//                .getKeyManagerConfigs();
-//        String kmCertAlias = keyManagerConfigs.getKeyManagerCertAlias();
-        MockyClient client = Feign.builder().client(new Client.Default(AMSSLSocketFactory.getSSLSocketFactory(),
+        KeyMgtConfigurations keyManagerConfigs = ServiceReferenceHolder.getInstance().getAPIMConfiguration()
+                .getKeyManagerConfigs();
+        String kmCertAlias = keyManagerConfigs.getKeyManagerCertAlias();
+        client = Feign.builder().client(new Client.Default(AMSSLSocketFactory.getSSLSocketFactory(kmCertAlias),
                 (hostname, sslSession) -> true)).target(MockyClient.class, url);
     }
 
 
     @Test(enabled = true)
     public void apisGetTest() {
-        String response = client.getAll();
+        String response = client.testValidApikey();
         System.out.println(response);
         //String response = apiClient.get();
         Assert.assertEquals(response, "{ \"abc\": \"This is a test\" }", "API name mismatch");
 
+        String res = client.testInvalidApikey();
+        System.out.println(res);
+        Assert.assertEquals(res, "{\"code\":900903,\"message\":\"subscription not found\"}", "API name mismatch");
+
+//        String rr = client.addUser("sabeena","sabeena");
+//        System.out.println(rr);
+
+       // client.addUser("sabeena","sabeena");
     }
+
 
 
 

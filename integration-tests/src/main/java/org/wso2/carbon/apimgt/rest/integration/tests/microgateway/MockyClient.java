@@ -17,6 +17,7 @@
  */
 package org.wso2.carbon.apimgt.rest.integration.tests.microgateway;
 
+import feign.Body;
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
@@ -39,8 +40,18 @@ public interface MockyClient {
 
 
     @RequestLine("GET /")
-    @Headers("apikey: 122456")
-    String getAll();
+    @Headers("apikey: 122156")
+    String testInvalidApikey();
 
+
+    @RequestLine("GET /")
+    @Headers("apikey: 122456")
+    String testValidApikey();
+
+    @RequestLine("POST /")
+    @Headers({"apikey: 122456","Content-Type: application/json","Accept: application/json"})
+//    @Headers("apikey: 122456")
+    @Body("%7B\"user_name\": \"{user_name}\", \"password\": \"{password}\"%7D")
+    void addUser(@Param("user_name") String user, @Param("password") String password);
 
 }
