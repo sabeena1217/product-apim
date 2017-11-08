@@ -8,8 +8,9 @@
             <!--<package name="org.wso2.carbon.apimgt.rest.integration.tests.*"/>-->
         </packages>
         <classes>
-            <class name="org.wso2.carbon.apimgt.rest.integration.tests.microgateway.ApiClientTest" />
-            <class name="org.wso2.carbon.apimgt.rest.integration.tests.microgateway.MockyTest" />
+            <!--<class name="org.wso2.carbon.apimgt.rest.integration.tests.microgateway.ApiClientTest" />-->
+            <!--<class name="org.wso2.carbon.apimgt.rest.integration.tests.microgateway.MockyTest" />-->
+            <class name="org.wso2.carbon.apimgt.rest.integration.tests.microgateway.PetstoreTest" />
         </classes>
     </test>
 </suite>

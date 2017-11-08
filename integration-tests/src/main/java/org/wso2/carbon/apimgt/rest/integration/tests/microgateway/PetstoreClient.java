@@ -21,7 +21,10 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import feign.Response;
-public interface PetstoreClient {
+import io.swagger.client.api.PetApi;
+import io.swagger.client.model.Pet;
+
+public interface PetstoreClient extends PetApi{
 
     /**
      * Add a new pet to the store
@@ -34,4 +37,12 @@ public interface PetstoreClient {
 //            "Accept: application/json",
 //    })
 //    void addPet(Pet body);
+
+    @RequestLine("POST /pet")
+    @Headers({
+            "apikey: 111111",
+            "Content-Type: application/json",
+            "Accept: application/json",
+    })
+    void addPet(Pet body);
 }

@@ -32,7 +32,7 @@ public class MockyTest {
     MockyClient client = null;
 
     @BeforeTest
-    public void setup() throws APIManagementException{
+    public void setup() throws APIManagementException {
         String url = "https://localhost:9092/api";
         KeyMgtConfigurations keyManagerConfigs = ServiceReferenceHolder.getInstance().getAPIMConfiguration()
                 .getKeyManagerConfigs();
